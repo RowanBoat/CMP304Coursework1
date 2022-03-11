@@ -12,7 +12,6 @@ public class Patrol : Node
     Seeker seeker;
     Path path;
     int currentWaypoint = 0;
-    bool reachedEnd = false;
     float waypointDistance = 1f;
 
     public Patrol(Transform newTransform, Transform[] newWaypoints, Seeker newSeeker)
@@ -31,8 +30,6 @@ public class Patrol : Node
 
     private float updateTime = 0.5f; // in seconds
     private float updateCounter = 0f;
-
-    private Vector2 debug;
 
     public override NodeState Evaluate()
     {
@@ -53,21 +50,14 @@ public class Patrol : Node
                 waitCounter = 0f;
                 waiting = true;
 
-                //currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length;
                 currentWaypointIndex++;
-                Debug.Log("Current Waypoint Location:" + currentWaypointIndex);
                 if (currentWaypointIndex >= waypoints.Length)
                     currentWaypointIndex = 0;
             }
             else
             {
-                // transform.position = Vector3.MoveTowards(
-                //     transform.position,
-                //     wp.position,
-                //     GuardBehaviour.speed * Time.deltaTime);
-
                 updateCounter += Time.deltaTime;
-                if (updateCounter >= waitTime)
+                if (updateCounter >= updateTime)
                 {
                     UpdatePath(wp);
                     updateCounter = 0f;
@@ -77,18 +67,10 @@ public class Patrol : Node
                     return NodeState.FAILURE;
 
                 if (currentWaypoint >= path.vectorPath.Count)
-                {
-                    reachedEnd = true;
                     return NodeState.SUCCESS;
-                }
-                else
-                {
-                    reachedEnd = false;
-                }
 
                 Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - new Vector2(transform.position.x, transform.position.y)).normalized;
                 Vector2 force = direction * GuardBehaviour.speed * Time.deltaTime;
-                debug = (Vector2)path.vectorPath[currentWaypoint];
                 transform.Translate(force);
 
                 float distance = Vector2.Distance(transform.position, path.vectorPath[currentWaypoint]);
@@ -100,7 +82,6 @@ public class Patrol : Node
             }
         }
 
-        //Debug.Log("Running (" + debug + ")");
         state = NodeState.RUNNING;
         return state;
     }

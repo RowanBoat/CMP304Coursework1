@@ -6,17 +6,9 @@ using BehaviourTree;
 
 public class GuardBehaviour : TreeNode
 {
-    //    public Transform target;
-
-    float time = 0;
     public static float speed = 50f;
-    float waypointDistance = 3f;
     Vector3 mousePos;
     Vector3 alertPos;
-
-    Path path;
-    int currentWaypoint = 0;
-    bool reachedEnd = false;
 
     public UnityEngine.Transform[] waypoints;
 
@@ -28,17 +20,6 @@ public class GuardBehaviour : TreeNode
         Node root = new Patrol(transform, waypoints, seeker);
         return root;
     }
-
-    // Start is called before the first frame update
-    //void Start()
-    //{
-    //    alertPos = new Vector3(0f, 0f, 0f);
-    //    seeker = GetComponent<Seeker>();
-    //
-    //    //InvokeRepeating("UpdatePath", 0f, 0.5f);
-    //}
-
-
 
     //void UpdatePath()
     //{
