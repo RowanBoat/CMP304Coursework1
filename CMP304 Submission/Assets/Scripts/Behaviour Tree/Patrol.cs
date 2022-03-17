@@ -9,6 +9,8 @@ public class Patrol : Node
     private Transform transform;
     private Transform[] waypoints;
 
+    private GameObject[] targets;
+
     Seeker seeker;
     Path path;
     int currentWaypoint = 0;
@@ -19,6 +21,7 @@ public class Patrol : Node
         transform = newTransform;
         waypoints = newWaypoints;
         seeker = newSeeker;
+        targets = GameObject.FindGameObjectsWithTag("Target");
         UpdatePath(waypoints[3]);
     }
 
@@ -68,6 +71,19 @@ public class Patrol : Node
 
                 if (currentWaypoint >= path.vectorPath.Count)
                     return NodeState.SUCCESS;
+
+                for (int i = 0; i < targets.Length; i++)
+                {
+                    if (targets[i] != null)
+                    {
+                        float targetDistance = Vector2.Distance(targets[i].transform.position, transform.position);
+                        if (targetDistance < 10.0f)
+                        {
+                            state = NodeState.FAILURE;
+                            return state;
+                        }
+                    }
+                }
 
                 Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - new Vector2(transform.position.x, transform.position.y)).normalized;
                 Vector2 force = direction * GuardBehaviour.speed * Time.deltaTime;

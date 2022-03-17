@@ -7,8 +7,6 @@ using BehaviourTree;
 public class GuardBehaviour : TreeNode
 {
     public static float speed = 50f;
-    Vector3 mousePos;
-    Vector3 alertPos;
 
     public UnityEngine.Transform[] waypoints;
 
@@ -17,26 +15,25 @@ public class GuardBehaviour : TreeNode
     protected override Node SetupTree()
     {
         seeker = GetComponent<Seeker>();
-        Node root = new Patrol(transform, waypoints, seeker);
 
-        //Node root = new Selector(new List<Node>
-        //{
-        //    new Selector(new List<Node>
-        //    {
-        //        new Patrol(transform, waypoints, seeker),
-        //        new Attack()
-        //    }),
-
-        //    new Sequence(new List<Node>
-        //    {
-        //        new MoveToAlert(),
-        //        new Selector(new List<Node>
-        //        {
-        //            new Search(),
-        //            new Attack()
-        //        }
-        //    }
-        //});
+        Node root = new Selector(new List<Node>
+        {
+            new Selector(new List<Node>
+            {
+                new Patrol(transform, waypoints, seeker),
+                new Attack(transform, seeker)
+            })
+        
+            //new Sequence(new List<Node>
+            //{
+            //    new MoveToAlert(),
+            //    new Selector(new List<Node>
+            //    {
+            //        new Search(),
+            //    new Attack(transform, seeker)
+            //    })
+            //})
+        });
 
         return root;
     }
