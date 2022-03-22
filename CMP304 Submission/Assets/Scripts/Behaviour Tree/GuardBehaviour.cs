@@ -6,7 +6,7 @@ using BehaviourTree;
 
 public class GuardBehaviour : TreeNode
 {
-    public static float speed = 50f;
+    public static float speed = 20f;
 
     public UnityEngine.Transform[] waypoints;
 
@@ -22,17 +22,17 @@ public class GuardBehaviour : TreeNode
             {
                 new Patrol(transform, waypoints, seeker),
                 new Attack(transform, seeker)
-            })
-        
-            //new Sequence(new List<Node>
-            //{
-            //    new MoveToAlert(),
+            }),
+
+            new Sequence(new List<Node>
+            {
+                new MoveToAlert(transform, seeker)
             //    new Selector(new List<Node>
             //    {
             //        new Search(),
-            //    new Attack(transform, seeker)
+            //        new Attack(transform, seeker)
             //    })
-            //})
+            })
         });
 
         return root;

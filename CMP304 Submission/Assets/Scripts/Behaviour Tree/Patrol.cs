@@ -11,6 +11,8 @@ public class Patrol : Node
 
     private GameObject[] targets;
 
+    private GameObject[] alert;
+
     Seeker seeker;
     Path path;
     int currentWaypoint = 0;
@@ -36,6 +38,14 @@ public class Patrol : Node
 
     public override NodeState Evaluate()
     {
+        alert = GameObject.FindGameObjectsWithTag("Alert");
+        if (alert.Length > 0)
+        {
+            state = NodeState.FAILURE;
+            updateCounter = updateTime;
+            return state;
+        }
+
         if (waiting)
         {
             waitCounter += Time.deltaTime;
@@ -80,6 +90,7 @@ public class Patrol : Node
                         if (targetDistance < 10.0f)
                         {
                             state = NodeState.FAILURE;
+                            updateCounter = updateTime;
                             return state;
                         }
                     }

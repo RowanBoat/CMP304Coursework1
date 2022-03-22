@@ -15,11 +15,11 @@ F:/CMP304/CMP304Coursework1/CMP304 Submission
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-63845
+58635
 Successfully changed project path to: F:/CMP304/CMP304Coursework1/CMP304 Submission
 F:/CMP304/CMP304Coursework1/CMP304 Submission
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 59.36 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 54.40 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.0f1 (c7b5465681fb)
 [Subsystems] Discovering subsystems at path F:/Unity/2020.3.0f1/Editor/Data/Resources/UnitySubsystems
@@ -35,143 +35,19 @@ Initialize mono
 Mono path[0] = 'F:/Unity/2020.3.0f1/Editor/Data/Managed'
 Mono path[1] = 'F:/Unity/2020.3.0f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'F:/Unity/2020.3.0f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56688
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56884
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: F:/Unity/2020.3.0f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.000769 seconds.
+Registered in 0.000789 seconds.
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 35.88 ms, found 1 plugins.
+Refreshing native plugins compatible for Editor in 36.44 ms, found 1 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Invoked RoslynAnalysisRunner static constructor.
 RoslynAnalysisRunner will not be running.
 RoslynAnalysisRunner has terminated.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.926 seconds
+- Completed reload, in 11.422 seconds
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.000990 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 36.25 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Invoked RoslynAnalysisRunner static constructor.
-RoslynAnalysisRunner will not be running.
-RoslynAnalysisRunner has terminated.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.832 seconds
-Platform modules already initialized, skipping
-========================================================================
-Worker process is ready to serve import requests
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.07 seconds
-Refreshing native plugins compatible for Editor in 0.37 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1953 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 90.4 MB.
-System memory in use after: 90.4 MB.
-
-Unloading 25 unused Assets to reduce memory usage. Loaded Objects now: 2395.
-Total: 2.154200 ms (FindLiveObjects: 0.292300 ms CreateObjectMapping: 0.146200 ms MarkObjects: 1.593400 ms  DeleteObjects: 0.121400 ms)
-
-========================================================================
-Received Import Request.
-  path: Assets/Scripts/Behaviour Tree/Selector.cs
-  artifactKey: Guid(99d578219173ed44ba614a4d4dfcef96) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Behaviour Tree/Selector.cs using Guid(99d578219173ed44ba614a4d4dfcef96) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ce8633e3af9a4343f77f93c80fb1ee3b') in 0.123149 seconds
-  Import took 0.148602 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 159.865941 seconds.
-  path: Assets/Scripts/Behaviour Tree/SearchArea.cs
-  artifactKey: Guid(dbf5d14930a55c84f91c5497f1931541) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Behaviour Tree/SearchArea.cs using Guid(dbf5d14930a55c84f91c5497f1931541) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c6dfe34759c2372aee484a4d2260618c') in 0.005589 seconds
-  Import took 0.022327 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 0.006659 seconds.
-  path: Assets/Scripts/Behaviour Tree/SearchArea.cs
-  artifactKey: Guid(dbf5d14930a55c84f91c5497f1931541) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Behaviour Tree/SearchArea.cs using Guid(dbf5d14930a55c84f91c5497f1931541) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c6dfe34759c2372aee484a4d2260618c') in 0.002227 seconds
-  Import took 0.005398 seconds .
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.001318 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.48 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Invoked RoslynAnalysisRunner static constructor.
-RoslynAnalysisRunner will not be running.
-RoslynAnalysisRunner has terminated.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.853 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.36 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1944 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 90.1 MB.
-System memory in use after: 90.1 MB.
-
-Unloading 13 unused Assets to reduce memory usage. Loaded Objects now: 2399.
-Total: 1.972200 ms (FindLiveObjects: 0.181000 ms CreateObjectMapping: 0.078100 ms MarkObjects: 1.620700 ms  DeleteObjects: 0.091900 ms)
-
-========================================================================
-Received Import Request.
-  Time since last request: 24.300191 seconds.
-  path: Assets/Scripts/Behaviour Tree/GuardBehaviour.cs
-  artifactKey: Guid(57d26370600df8c4bbc19e4e33cda787) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Behaviour Tree/GuardBehaviour.cs using Guid(57d26370600df8c4bbc19e4e33cda787) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e094126ce0d2454dee9e2efc2a79414e') in 0.008997 seconds
-  Import took 0.033367 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 15.620569 seconds.
-  path: Assets/Scripts/Behaviour Tree/GuardBehaviour.cs
-  artifactKey: Guid(57d26370600df8c4bbc19e4e33cda787) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Behaviour Tree/GuardBehaviour.cs using Guid(57d26370600df8c4bbc19e4e33cda787) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '40816a00ef1fa9d43a9351e50091c1fe') in 0.002566 seconds
-  Import took 0.028736 seconds .
-
-========================================================================
-Received Import Request.
-  Time since last request: 26.985771 seconds.
-  path: Assets/Scripts/Behaviour Tree/GuardBehaviour.cs
-  artifactKey: Guid(57d26370600df8c4bbc19e4e33cda787) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Behaviour Tree/GuardBehaviour.cs using Guid(57d26370600df8c4bbc19e4e33cda787) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '060d819045cccb2235fa0ebd88c2a293') in 0.002571 seconds
-  Import took 0.035568 seconds .
-
-========================================================================
-Received Prepare
-Registering precompiled user dll's ...
-Registered in 0.001025 seconds.
-Begin MonoManager ReloadAssembly
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.36 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Invoked RoslynAnalysisRunner static constructor.
-RoslynAnalysisRunner will not be running.
-RoslynAnalysisRunner has terminated.
-Mono: successfully reloaded assembly
-- Completed reload, in  0.775 seconds
-Platform modules already initialized, skipping
-Refreshing native plugins compatible for Editor in 0.42 ms, found 1 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 1944 Unused Serialized files (Serialized files now loaded: 0)
-System memory in use before: 90.1 MB.
-System memory in use after: 90.1 MB.
-
-Unloading 13 unused Assets to reduce memory usage. Loaded Objects now: 2403.
-Total: 2.040100 ms (FindLiveObjects: 0.173500 ms CreateObjectMapping: 0.072700 ms MarkObjects: 1.693200 ms  DeleteObjects: 0.099700 ms)
-
-========================================================================
-Received Import Request.
-  Time since last request: 158.390434 seconds.
-  path: Assets/Scripts/Behaviour Tree/GuardBehaviour.cs
-  artifactKey: Guid(57d26370600df8c4bbc19e4e33cda787) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Scripts/Behaviour Tree/GuardBehaviour.cs using Guid(57d26370600df8c4bbc19e4e33cda787) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '844d17db44a968ab86befb1e752a8355') in 0.005830 seconds
-  Import took 0.022780 seconds .
-
-AssetImportWorkerClient::OnTransportError - code=2 error=End of file
+Registered in 0.001006 seconds.

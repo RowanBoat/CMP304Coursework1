@@ -11,6 +11,8 @@ public class Attack : Node
     private GameObject target;
     private GameObject[] targets;
 
+    private GameObject[] alert;
+
     private float updateTime = 0.5f; // in seconds
     private float updateCounter = 0f;
 
@@ -32,6 +34,14 @@ public class Attack : Node
 
     public override NodeState Evaluate()
     {
+        alert = GameObject.FindGameObjectsWithTag("Alert");
+        if (alert.Length > 0)
+        {
+            state = NodeState.FAILURE;
+            updateCounter = updateTime;
+            return state;
+        }
+
         if (target == null)
         {
             findClosestTarget();
@@ -65,6 +75,7 @@ public class Attack : Node
         if (targetDistance < 1.0f)
         {
             UnityEngine.Object.Destroy(target);
+            updateCounter = updateTime;
             state = NodeState.SUCCESS;
             return state;
         }

@@ -7,23 +7,62 @@ using BehaviourTree;
 public class MoveToAlert : Node
 {
     private Transform transform;
-    private Transform alert;
+
+    private GameObject[] alert;
 
     Seeker seeker;
     Path path;
     int currentWaypoint = 0;
     float waypointDistance = 1f;
 
-    public MoveToAlert(Transform newTransform, Transform newAlert, Seeker newSeeker)
+    public MoveToAlert(Transform newTransform, Seeker newSeeker)
     {
         transform = newTransform;
-        alert = newAlert;
         seeker = newSeeker;
-        UpdatePath(alert);
     }
+
+    private float updateTime = 0.5f; // in seconds
+    private float updateCounter = 0f;
 
     public override NodeState Evaluate()
     {
+        //if (alert == null)
+        //{ 
+            alert = GameObject.FindGameObjectsWithTag("Alert");
+       // }
+
+        updateCounter += Time.deltaTime;
+        if (updateCounter >= updateTime)
+        {
+            UpdatePath(alert[0].transform);
+            updateCounter = 0f;
+        }
+        
+        if (path == null)
+            return NodeState.FAILURE;
+        
+        if (currentWaypoint >= path.vectorPath.Count)
+            return NodeState.SUCCESS;
+        
+        Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - new Vector2(transform.position.x, transform.position.y)).normalized;
+        Vector2 force = direction * GuardBehaviour.speed * Time.deltaTime;
+        transform.Translate(force);
+        
+        float distance = Vector2.Distance(transform.position, path.vectorPath[currentWaypoint]);
+        
+        if (distance < waypointDistance)
+        {
+            currentWaypoint++;
+        }
+        
+        float alertDistance = Vector2.Distance(alert[0].transform.position, transform.position);
+        if (alertDistance < 1.0f)
+        {
+            UnityEngine.Object.Destroy(alert[0]);
+            state = NodeState.SUCCESS;
+            return state;
+        }
+
         state = NodeState.RUNNING;
         return state;
     }
