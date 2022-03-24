@@ -27,7 +27,7 @@ public class GuardFSM : MonoBehaviour
 
     private GameObject[] alert;
     private GameObject[] targets;
-    private GameObject target = null;
+    private GameObject target;
     float targetDistance;
 
     Vector2 direction;
@@ -39,6 +39,8 @@ public class GuardFSM : MonoBehaviour
     private float waitTime = 1f; // in seconds
     private float waitCounter = 0f;
     private bool waiting = false;
+
+    float searchTime = 0f;
 
     private int currentWaypointIndex = 0;
 
@@ -130,6 +132,19 @@ public class GuardFSM : MonoBehaviour
 
                 currentDestination = alert[0].transform;
 
+                for (int i = 0; i < targets.Length; i++)
+                {
+                    if (targets[i] != null)
+                    {
+                        targetDistance = Vector2.Distance(targets[i].transform.position, transform.position);
+                        if (targetDistance < 10.0f + searchTime)
+                        {
+                            state = GuardState.Attack;
+                            return;
+                        }
+                    }
+                }
+
                 if (path == null)
                     return;
 
@@ -151,12 +166,31 @@ public class GuardFSM : MonoBehaviour
                 if (alertDistance < 1.0f)
                 {
                     UnityEngine.Object.Destroy(alert[0]);
-                    state = GuardState.Patrol;
+                    state = GuardState.Search;
                     break;
                 }
                 break;
 
-            case GuardState.Search: 
+            case GuardState.Search:
+                searchTime += Time.deltaTime;
+                for (int i = 0; i < targets.Length; i++)
+                {
+                    if (targets[i] != null)
+                    {
+                        targetDistance = Vector2.Distance(targets[i].transform.position, transform.position);
+                        if (targetDistance < 10.0f + searchTime)
+                        {
+                            state = GuardState.Attack;
+                            return;
+                        }
+                    }
+                }
+                if (searchTime >= 5f)
+                {
+                    searchTime = 0f;
+                    state = GuardState.Patrol;
+                    break;
+                }
                 break;
 
             case GuardState.Attack:
