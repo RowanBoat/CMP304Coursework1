@@ -33,7 +33,7 @@ public class Patrol : Node
     private float waitCounter = 0f;
     private bool waiting = false;
 
-    private float updateTime = 0.5f; // in seconds
+    private float updateTime = 0.25f; // in seconds
     private float updateCounter = 0f;
 
     public override NodeState Evaluate()
@@ -42,7 +42,6 @@ public class Patrol : Node
         if (alert.Length > 0)
         {
             state = NodeState.FAILURE;
-            updateCounter = updateTime;
             return state;
         }
 
@@ -90,7 +89,6 @@ public class Patrol : Node
                         if (targetDistance < 10.0f)
                         {
                             state = NodeState.FAILURE;
-                            updateCounter = updateTime;
                             return state;
                         }
                     }

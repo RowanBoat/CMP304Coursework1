@@ -38,7 +38,6 @@ public class Attack : Node
         if (alert.Length > 0)
         {
             state = NodeState.FAILURE;
-            updateCounter = updateTime;
             return state;
         }
 
@@ -75,7 +74,6 @@ public class Attack : Node
         if (targetDistance < 1.0f)
         {
             UnityEngine.Object.Destroy(target);
-            updateCounter = updateTime;
             state = NodeState.SUCCESS;
             return state;
         }

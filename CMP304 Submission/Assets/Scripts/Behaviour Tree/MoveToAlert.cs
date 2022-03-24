@@ -26,10 +26,7 @@ public class MoveToAlert : Node
 
     public override NodeState Evaluate()
     {
-        //if (alert == null)
-        //{ 
-            alert = GameObject.FindGameObjectsWithTag("Alert");
-       // }
+        alert = GameObject.FindGameObjectsWithTag("Alert");
 
         updateCounter += Time.deltaTime;
         if (updateCounter >= updateTime)
