@@ -38,7 +38,7 @@ public class Patrol : Node
 
     public override NodeState Evaluate()
     {
-        alert = GameObject.FindGameObjectsWithTag("Alert");
+        alert = GameObject.FindGameObjectsWithTag("Alert2");
         if (alert.Length > 0)
         {
             state = NodeState.FAILURE;
@@ -126,4 +126,3 @@ public class Patrol : Node
         }
     }
 }
-

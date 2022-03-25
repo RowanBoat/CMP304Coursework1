@@ -24,6 +24,7 @@ public class GuardFSM : MonoBehaviour
     int currentWaypoint = 0;
     float waypointDistance = 1f;
     public Transform[] waypoints;
+    private Transform currentDestination;
 
     private GameObject[] alert;
     private GameObject[] targets;
@@ -33,8 +34,6 @@ public class GuardFSM : MonoBehaviour
     Vector2 direction;
     Vector2 force;
     float distance;
-
-    private Transform currentDestination;
 
     private float waitTime = 1f; // in seconds
     private float waitCounter = 0f;
@@ -60,13 +59,7 @@ public class GuardFSM : MonoBehaviour
         switch(state)
         {
             case GuardState.Patrol:
-                Debug.Log("Patrol " + currentWaypointIndex);
-                alert = GameObject.FindGameObjectsWithTag("Alert");
-                if (alert.Length > 0)
-                {
-                    state = GuardState.Alert;
-                    break;
-                }
+                alertCheck();
 
                 if (waiting)
                 {
@@ -93,74 +86,17 @@ public class GuardFSM : MonoBehaviour
                     }
                     else
                     {
-                        for (int i = 0; i < targets.Length; i++)
-                        {
-                            if (targets[i] != null)
-                            {
-                                targetDistance = Vector2.Distance(targets[i].transform.position, transform.position);
-                                if (targetDistance < 10.0f)
-                                {
-                                    state = GuardState.Attack;
-                                    return;
-                                }
-                            }
-                        }
+                        lookForTargets(0f);
 
-                        if (path == null)
-                            return;
-
-                        if (currentWaypoint >= path.vectorPath.Count)
-                            return;
-
-                        direction = ((Vector2)path.vectorPath[currentWaypoint] - new Vector2(transform.position.x, transform.position.y)).normalized;
-                        force = direction * speed * Time.deltaTime;
-                        transform.Translate(force);
-
-                        distance = Vector2.Distance(transform.position, path.vectorPath[currentWaypoint]);
-
-                        if (distance < waypointDistance)
-                        {
-                            currentWaypoint++;
-                        }
+                        moveAlongPath();
                     }
                 }
                 break;
 
             case GuardState.Alert:
-                Debug.Log("Alert");
                 alert = GameObject.FindGameObjectsWithTag("Alert");
-
                 currentDestination = alert[0].transform;
-
-                for (int i = 0; i < targets.Length; i++)
-                {
-                    if (targets[i] != null)
-                    {
-                        targetDistance = Vector2.Distance(targets[i].transform.position, transform.position);
-                        if (targetDistance < 10.0f + searchTime)
-                        {
-                            state = GuardState.Attack;
-                            return;
-                        }
-                    }
-                }
-
-                if (path == null)
-                    return;
-
-                if (currentWaypoint >= path.vectorPath.Count)
-                    return;
-
-                direction = ((Vector2)path.vectorPath[currentWaypoint] - new Vector2(transform.position.x, transform.position.y)).normalized;
-                force = direction * GuardBehaviour.speed * Time.deltaTime;
-                transform.Translate(force);
-
-                distance = Vector2.Distance(transform.position, path.vectorPath[currentWaypoint]);
-
-                if (distance < waypointDistance)
-                {
-                    currentWaypoint++;
-                }
+                moveAlongPath();
 
                 float alertDistance = Vector2.Distance(alert[0].transform.position, transform.position);
                 if (alertDistance < 1.0f)
@@ -172,19 +108,11 @@ public class GuardFSM : MonoBehaviour
                 break;
 
             case GuardState.Search:
+                alertCheck();
                 searchTime += Time.deltaTime;
-                for (int i = 0; i < targets.Length; i++)
-                {
-                    if (targets[i] != null)
-                    {
-                        targetDistance = Vector2.Distance(targets[i].transform.position, transform.position);
-                        if (targetDistance < 10.0f + searchTime)
-                        {
-                            state = GuardState.Attack;
-                            return;
-                        }
-                    }
-                }
+
+                lookForTargets(searchTime);
+
                 if (searchTime >= 5f)
                 {
                     searchTime = 0f;
@@ -194,33 +122,10 @@ public class GuardFSM : MonoBehaviour
                 break;
 
             case GuardState.Attack:
-                Debug.Log("Attack");
-                alert = GameObject.FindGameObjectsWithTag("Alert");
-                if (alert.Length > 0)
-                {
-                    state = GuardState.Alert;
-                    break;
-                }
-
+                alertCheck();
                 findClosestTarget();
                 currentDestination = target.transform;
-
-                if (path == null)
-                    return;
-
-                if (currentWaypoint >= path.vectorPath.Count)
-                    return;
-
-                direction = ((Vector2)path.vectorPath[currentWaypoint] - new Vector2(transform.position.x, transform.position.y)).normalized;
-                force = direction * GuardBehaviour.speed * Time.deltaTime;
-                transform.Translate(force);
-
-                distance = Vector2.Distance(transform.position, path.vectorPath[currentWaypoint]);
-
-                if (distance < waypointDistance)
-                {
-                    currentWaypoint++;
-                }
+                moveAlongPath();
 
                 targetDistance = Vector2.Distance(target.transform.position, transform.position);
                 if (targetDistance < 1.0f)
@@ -272,6 +177,51 @@ public class GuardFSM : MonoBehaviour
         {
             path = p;
             currentWaypoint = 0;
+        }
+    }
+
+    void alertCheck()
+    {
+        alert = GameObject.FindGameObjectsWithTag("Alert");
+        if (alert.Length > 0)
+        {
+            state = GuardState.Alert;
+        }
+    }
+
+    void lookForTargets(float rad)
+    {
+        for (int i = 0; i < targets.Length; i++)
+        {
+            if (targets[i] != null)
+            {
+                targetDistance = Vector2.Distance(targets[i].transform.position, transform.position);
+                if (targetDistance < 10.0f + rad)
+                {
+                    state = GuardState.Attack;
+                    break;
+                }
+            }
+        }
+    }
+
+    void moveAlongPath()
+    {
+        if (path == null)
+            return;
+
+        if (currentWaypoint >= path.vectorPath.Count)
+            return;
+
+        direction = ((Vector2)path.vectorPath[currentWaypoint] - new Vector2(transform.position.x, transform.position.y)).normalized;
+        force = direction * speed * Time.deltaTime;
+        transform.Translate(force);
+
+        distance = Vector2.Distance(transform.position, path.vectorPath[currentWaypoint]);
+
+        if (distance < waypointDistance)
+        {
+            currentWaypoint++;
         }
     }
 }

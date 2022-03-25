@@ -9,6 +9,7 @@ public class MoveToAlert : Node
     private Transform transform;
 
     private GameObject[] alert;
+    private GameObject[] targets;
 
     Seeker seeker;
     Path path;
@@ -19,6 +20,7 @@ public class MoveToAlert : Node
     {
         transform = newTransform;
         seeker = newSeeker;
+        targets = GameObject.FindGameObjectsWithTag("Target");
     }
 
     private float updateTime = 0.5f; // in seconds
@@ -26,7 +28,7 @@ public class MoveToAlert : Node
 
     public override NodeState Evaluate()
     {
-        alert = GameObject.FindGameObjectsWithTag("Alert");
+        alert = GameObject.FindGameObjectsWithTag("Alert2");
 
         updateCounter += Time.deltaTime;
         if (updateCounter >= updateTime)
@@ -40,7 +42,7 @@ public class MoveToAlert : Node
         
         if (currentWaypoint >= path.vectorPath.Count)
             return NodeState.SUCCESS;
-        
+
         Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - new Vector2(transform.position.x, transform.position.y)).normalized;
         Vector2 force = direction * GuardBehaviour.speed * Time.deltaTime;
         transform.Translate(force);

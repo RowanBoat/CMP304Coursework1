@@ -34,17 +34,14 @@ public class Attack : Node
 
     public override NodeState Evaluate()
     {
-        alert = GameObject.FindGameObjectsWithTag("Alert");
+        alert = GameObject.FindGameObjectsWithTag("Alert2");
         if (alert.Length > 0)
         {
             state = NodeState.FAILURE;
             return state;
         }
 
-        if (target == null)
-        {
-            findClosestTarget();
-        }
+        findClosestTarget();
 
         updateCounter += Time.deltaTime;
         if (updateCounter >= updateTime)

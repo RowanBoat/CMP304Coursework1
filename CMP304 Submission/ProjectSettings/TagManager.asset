@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Alert
   - Target
+  - Alert2
   layers:
   - Default
   - TransparentFX

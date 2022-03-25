@@ -26,12 +26,12 @@ public class GuardBehaviour : TreeNode
 
             new Sequence(new List<Node>
             {
-                new MoveToAlert(transform, seeker)
-            //    new Selector(new List<Node>
-            //    {
-            //        new Search(),
-            //        new Attack(transform, seeker)
-            //    })
+                new MoveToAlert(transform, seeker),
+                new Selector(new List<Node>
+                {
+                    new SearchArea(transform),
+                    new Attack(transform, seeker)
+                })
             })
         });
 
