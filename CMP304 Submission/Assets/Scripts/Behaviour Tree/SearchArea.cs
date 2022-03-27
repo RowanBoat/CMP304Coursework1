@@ -42,7 +42,7 @@ public class SearchArea : Node
         if (searchTime >= 5f)
         {
             searchTime = 0f;
-            state = NodeState.FAILURE;
+            state = NodeState.SUCCESS;
             return state;
         }
 
