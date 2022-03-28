@@ -44,7 +44,7 @@ public class MoveToAlert : Node
 
         if (currentWaypoint >= path.vectorPath.Count)
         {
-            return NodeState.SUCCESS;
+            return NodeState.FAILURE;
         }
 
         Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - new Vector2(transform.position.x, transform.position.y)).normalized;

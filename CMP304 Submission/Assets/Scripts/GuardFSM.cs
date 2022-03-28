@@ -1,3 +1,7 @@
+// Guard AI Finite State Machine
+// By Rowan Ruthven
+// 1802152
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +9,7 @@ using Pathfinding;
 
 public class GuardFSM : MonoBehaviour
 {
+    // All of the states the AI will be using
     public enum GuardState 
     { 
         Patrol, 
@@ -14,26 +19,24 @@ public class GuardFSM : MonoBehaviour
     }
 
     GuardState state;
-    float time = 0;
-    Vector3 mousePos;
 
+    // Movement Variables/Objects
     public static float speed = 20f;
-
     Seeker seeker;
     Path path;
     int currentWaypoint = 0;
     float waypointDistance = 1f;
     public Transform[] waypoints;
     private Transform currentDestination;
-
-    private GameObject[] alert;
-    private GameObject[] targets;
-    private GameObject target;
     float targetDistance;
-
     Vector2 direction;
     Vector2 force;
     float distance;
+
+    // Setting up for tags
+    private GameObject[] alert;
+    private GameObject[] targets;
+    private GameObject target;
 
     private float waitTime = 1f; // in seconds
     private float waitCounter = 0f;
@@ -136,16 +139,11 @@ public class GuardFSM : MonoBehaviour
                 }
                 break;
         }
-
-        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        if (Input.GetMouseButtonDown(0))
-        {
-            time = Time.time;
-        }
     }
 
     void findClosestTarget()
     {
+        // When in the Attack state, checks which target is closer to the guard object
         int closest = -1;
         float distance = Mathf.Infinity;
         for (int i = 0; i < targets.Length; i++)
@@ -164,6 +162,7 @@ public class GuardFSM : MonoBehaviour
         target = targets[closest];
     }
 
+    // Pathfinding functions
     void UpdatePath()
     {
         if (currentDestination != null)
@@ -182,6 +181,7 @@ public class GuardFSM : MonoBehaviour
 
     void alertCheck()
     {
+        // Checks if any alerts are in the scene
         alert = GameObject.FindGameObjectsWithTag("Alert");
         if (alert.Length > 0)
         {
@@ -191,6 +191,7 @@ public class GuardFSM : MonoBehaviour
 
     void lookForTargets(float rad)
     {
+        // Checks in a radius whether or not there are any targets nearby
         for (int i = 0; i < targets.Length; i++)
         {
             if (targets[i] != null)
@@ -207,18 +208,21 @@ public class GuardFSM : MonoBehaviour
 
     void moveAlongPath()
     {
+        // Takes the current path and moves the object along it
         if (path == null)
             return;
 
         if (currentWaypoint >= path.vectorPath.Count)
             return;
 
+        // Calculating a normalised direction from point A (current position) and point B (waypoint)
         direction = ((Vector2)path.vectorPath[currentWaypoint] - new Vector2(transform.position.x, transform.position.y)).normalized;
         force = direction * speed * Time.deltaTime;
         transform.Translate(force);
 
         distance = Vector2.Distance(transform.position, path.vectorPath[currentWaypoint]);
 
+        // Moves to next waypoint on the path once object is close enough to the current waypoint
         if (distance < waypointDistance)
         {
             currentWaypoint++;

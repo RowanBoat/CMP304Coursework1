@@ -21,6 +21,8 @@ namespace BehaviourTree
                     case NodeState.RUNNING:
                         state = NodeState.RUNNING;
                         return state;
+                    case NodeState.IDLE:
+                        
                     default:
                         continue;
                 }

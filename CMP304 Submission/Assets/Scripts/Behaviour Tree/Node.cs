@@ -7,7 +7,8 @@ namespace BehaviourTree
     {
         RUNNING,
         SUCCESS,
-        FAILURE
+        FAILURE,
+        IDLE
     }
 
     public class Node

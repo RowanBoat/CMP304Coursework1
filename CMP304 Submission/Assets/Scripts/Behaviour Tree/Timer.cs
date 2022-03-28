@@ -5,35 +5,29 @@ namespace BehaviourTree
 {
     public class Timer : Node
     {
-        private float _delay;
+        private float duration;
         private float time;
 
-        public delegate void TickEnded();
-        public event TickEnded onTickEnded;
-
-        public Timer(float delay, List<Node> children, TickEnded onTickEnded = null)
+        public Timer(float _duration, List<Node> children)
             : base(children)
         {
-            _delay = delay;
-            time = _delay;
-            this.onTickEnded = onTickEnded;
+            duration = _duration;
+            time = 0f;
         }
 
         public override NodeState Evaluate()
         {
-            if (time <= 0)
+            Debug.Log("We Go Hard");
+            children[0].Evaluate();
+            time += Time.deltaTime;
+
+            if (time > duration)
             {
-                time = _delay;
-                if (onTickEnded != null)
-                    onTickEnded();
-                state = NodeState.SUCCESS;
-            }
-            else
-            {
-                state = children[0].Evaluate();
-                time -= Time.deltaTime;
                 state = NodeState.FAILURE;
+                return state;
             }
+
+            state = NodeState.IDLE;
             return state;
         }
     }

@@ -17,7 +17,6 @@ public class SearchArea : Node
 
     public override NodeState Evaluate()
     {
-        Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         alert = GameObject.FindGameObjectsWithTag("Alert2");
         if (alert.Length > 0)
         {
@@ -25,6 +24,8 @@ public class SearchArea : Node
             return state;
         }
 
+        Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        
         searchTime += Time.deltaTime;
         for (int i = 0; i < targets.Length; i++)
         {
@@ -33,17 +34,11 @@ public class SearchArea : Node
                 float targetDistance = Vector2.Distance(targets[i].transform.position, transform.position);
                 if (targetDistance < 10.0f + searchTime)
                 {
+                    searchTime = 0f;
                     state = NodeState.SUCCESS;
                     return state;
                 }
             }
-        }
-
-        if (searchTime >= 5f)
-        {
-            searchTime = 0f;
-            state = NodeState.SUCCESS;
-            return state;
         }
 
         state = NodeState.RUNNING;

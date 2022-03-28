@@ -23,6 +23,8 @@ namespace BehaviourTree
                     case NodeState.RUNNING:
                         anyChildIsRunning = true;
                         continue;
+                    case NodeState.IDLE:
+                        break;
                     default:
                         state = NodeState.SUCCESS;
                         return state;

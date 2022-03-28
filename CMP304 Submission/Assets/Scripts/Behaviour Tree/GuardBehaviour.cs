@@ -26,14 +26,19 @@ public class GuardBehaviour : TreeNode
 
             new Sequence(new List<Node>
             {
-                new MoveToAlert(transform, seeker),
-                new Timer(5f, new List<Node>
+                //new CompletionDecorator(new List<Node>
+                //{
+                    new MoveToAlert(transform, seeker),
+                //}),
+
+                new Selector(new List<Node>
                 {
-                    new Selector(new List<Node>
+                    new Timer(5f, new List<Node>
                     {
-                        new SearchArea(transform),
-                        new Attack(transform, seeker)
-                    })
+                        new SearchArea(transform)
+                    }),
+
+                    new Attack(transform, seeker)
                 })
             })
         });
