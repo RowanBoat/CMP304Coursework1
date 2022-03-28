@@ -36,12 +36,16 @@ public class MoveToAlert : Node
             UpdatePath(alert[0].transform);
             updateCounter = 0f;
         }
-        
+
         if (path == null)
+        {
             return NodeState.FAILURE;
-        
+        }
+
         if (currentWaypoint >= path.vectorPath.Count)
+        {
             return NodeState.SUCCESS;
+        }
 
         Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - new Vector2(transform.position.x, transform.position.y)).normalized;
         Vector2 force = direction * GuardBehaviour.speed * Time.deltaTime;
@@ -55,6 +59,7 @@ public class MoveToAlert : Node
         }
         
         float alertDistance = Vector2.Distance(alert[0].transform.position, transform.position);
+        Debug.Log(alertDistance);
         if (alertDistance < 1.0f)
         {
             UnityEngine.Object.Destroy(alert[0]);
@@ -62,7 +67,7 @@ public class MoveToAlert : Node
             return state;
         }
 
-        state = NodeState.RUNNING;
+        state = NodeState.FAILURE;
         return state;
     }
 
