@@ -358,6 +358,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420030}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -373,6 +374,20 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
+--- !u!114 &519420030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6033499ca41f10641a37a559360b5658, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alert: {fileID: 7878217332786164087, guid: 22987a4f5d9178143a969f4ce225b4c3, type: 3}
+  alert2: {fileID: 7897636131695869883, guid: 961198b73b9fdcc4eaa20e6191b2e0c7, type: 3}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -14746,7 +14761,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1179226713
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -15394,7 +15409,6 @@ GameObject:
   - component: {fileID: 2032448037}
   - component: {fileID: 2032448036}
   - component: {fileID: 2032448035}
-  - component: {fileID: 2032448040}
   - component: {fileID: 2032448039}
   - component: {fileID: 2032448038}
   m_Layer: 0
@@ -15530,17 +15544,3 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &2032448040
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2032448034}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6033499ca41f10641a37a559360b5658, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  alert: {fileID: 7878217332786164087, guid: 22987a4f5d9178143a969f4ce225b4c3, type: 3}
-  alert2: {fileID: 7897636131695869883, guid: 961198b73b9fdcc4eaa20e6191b2e0c7, type: 3}
