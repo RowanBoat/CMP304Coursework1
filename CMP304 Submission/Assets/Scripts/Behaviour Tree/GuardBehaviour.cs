@@ -26,11 +26,7 @@ public class GuardBehaviour : TreeNode
 
             new Sequence(new List<Node>
             {
-                //new CompletionDecorator(new List<Node>
-                //{
-                    new MoveToAlert(transform, seeker),
-                //}),
-
+                new MoveToAlert(transform, seeker),
                 new Selector(new List<Node>
                 {
                     new Timer(5f, new List<Node>

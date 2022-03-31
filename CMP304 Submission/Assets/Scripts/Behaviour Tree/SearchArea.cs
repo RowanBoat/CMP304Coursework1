@@ -35,7 +35,7 @@ public class SearchArea : Node
                 if (targetDistance < 10.0f + searchTime)
                 {
                     searchTime = 0f;
-                    state = NodeState.SUCCESS;
+                    state = NodeState.FAILURE;
                     return state;
                 }
             }
