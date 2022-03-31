@@ -6,6 +6,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
+using System.IO;
+
 
 public class GuardFSM : MonoBehaviour
 {
@@ -23,7 +25,7 @@ public class GuardFSM : MonoBehaviour
     // Movement Variables/Objects
     public static float speed = 20f;
     Seeker seeker;
-    Path path;
+    Pathfinding.Path path;
     int currentWaypoint = 0;
     float waypointDistance = 1f;
     public Transform[] waypoints;
@@ -46,6 +48,10 @@ public class GuardFSM : MonoBehaviour
 
     private int currentWaypointIndex = 0;
 
+    public List<float> timer;
+    public float tempTimer;
+    private GuardState tempState;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,12 +60,14 @@ public class GuardFSM : MonoBehaviour
         InvokeRepeating("UpdatePath", 0.0f, 0.5f);
 
         state = GuardState.Patrol;
+        tempState = GuardState.Patrol;
     }
 
     // Update is called once per frame
     void Update()
     {
-        switch(state)
+        tempTimer += Time.deltaTime;
+        switch (state)
         {
             case GuardState.Patrol:
                 alertCheck();
@@ -139,6 +147,28 @@ public class GuardFSM : MonoBehaviour
                 }
                 break;
         }
+
+            timer.Add(tempTimer);
+            WriteCSV();
+            tempTimer = 0f;
+    }
+
+    public void WriteCSV()
+    {
+        if (timer.Count > 0)
+        {
+            TextWriter tw = new StreamWriter(Application.dataPath + "/testFSM.csv", false);
+            tw.WriteLine("Time");
+            tw.Close();
+
+            tw = new StreamWriter(Application.dataPath + "/testFSM.csv", true);
+
+            for (int i = 0; i < timer.Count; i++)
+            {
+                tw.WriteLine(timer[i].ToString());
+            }
+            tw.Close();
+        }
     }
 
     void findClosestTarget()
@@ -170,7 +200,7 @@ public class GuardFSM : MonoBehaviour
                 seeker.StartPath(transform.position, currentDestination.position, OnPathComplete);
     }
 
-    void OnPathComplete(Path p)
+    void OnPathComplete(Pathfinding.Path p)
     {
         if (!p.error)
         {
