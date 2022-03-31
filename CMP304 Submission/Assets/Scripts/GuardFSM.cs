@@ -6,7 +6,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
-using System.IO;
 
 
 public class GuardFSM : MonoBehaviour
@@ -48,10 +47,6 @@ public class GuardFSM : MonoBehaviour
 
     private int currentWaypointIndex = 0;
 
-    public List<float> timer;
-    public float tempTimer;
-    private GuardState tempState;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -60,13 +55,11 @@ public class GuardFSM : MonoBehaviour
         InvokeRepeating("UpdatePath", 0.0f, 0.5f);
 
         state = GuardState.Patrol;
-        tempState = GuardState.Patrol;
     }
 
     // Update is called once per frame
     void Update()
     {
-        tempTimer += Time.deltaTime;
         switch (state)
         {
             case GuardState.Patrol:
@@ -146,28 +139,6 @@ public class GuardFSM : MonoBehaviour
                     break;
                 }
                 break;
-        }
-
-            timer.Add(tempTimer);
-            WriteCSV();
-            tempTimer = 0f;
-    }
-
-    public void WriteCSV()
-    {
-        if (timer.Count > 0)
-        {
-            TextWriter tw = new StreamWriter(Application.dataPath + "/testFSM.csv", false);
-            tw.WriteLine("Time");
-            tw.Close();
-
-            tw = new StreamWriter(Application.dataPath + "/testFSM.csv", true);
-
-            for (int i = 0; i < timer.Count; i++)
-            {
-                tw.WriteLine(timer[i].ToString());
-            }
-            tw.Close();
         }
     }
 
